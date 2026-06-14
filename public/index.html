@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TaskFlow Hub — Keep Track of Workflow Goals</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app-container">
+      
+      <section class="auth-wrapper" id="authSection">
+        <div class="auth-card">
+          <header>
+            <h1 class="auth-brand">TaskFlow</h1>
+            <p class="auth-subtitle">Coordinate performance goals dynamically in real-time.</p>
+          </header>
+
+          <form id="authControllerForm">
+            <div class="toggle-tab-group" role="tablist">
+              <button class="tab-item is-active" type="button" data-target-mode="login">Sign In</button>
+              <button class="tab-item" type="button" data-target-mode="register">Register</button>
+            </div>
+
+            <div class="form-group is-hidden register-scope">
+              <label for="regNameInput">Name</label>
+              <input id="regNameInput" name="name" placeholder="E.g. Alex Smith" />
+            </div>
+
+            <div class="form-group">
+              <label for="authEmailInput">Email Address</label>
+              <input id="authEmailInput" name="email" type="email" placeholder="name@domain.com" required />
+            </div>
+
+            <div class="form-group">
+              <label for="authPasswordInput">Password</label>
+              <input id="authPasswordInput" name="password" type="password" placeholder="••••••••" required minlength="8" />
+            </div>
+
+            <div class="error-container" id="authDiagnosticLog" role="alert"></div>
+            <button class="btn btn-primary" style="width:100%" type="submit" id="authSubmitAction">Sign In</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="app-workspace is-hidden" id="workspacePlatform">
+        <header class="main-header">
+          <div>
+            <h1 class="workspace-title">Task Pipeline</h1>
+          </div>
+          <div class="header-meta">
+            <button class="btn btn-mini" id="themeEngineToggle" type="button">🌓 Theme</button>
+            <div class="badge-profile">
+              <span class="status-dot" id="networkSyncIndicator"></span>
+              <span id="userIdentityLabel">Syncing state...</span>
+            </div>
+            <button class="btn btn-mini btn-danger" id="sessionExitAction" type="button" title="Log Out">↪</button>
+          </div>
+        </header>
+
+        <div class="dashboard-matrix">
+          <aside class="editor-sidebar">
+            <div class="sidebar-title-row">
+              <h2 class="sidebar-title" id="formContextHeadline">New Directive</h2>
+              <button class="btn btn-mini is-hidden" id="dismissEditStateBtn" type="button">Reset</button>
+            </div>
+
+            <form id="directiveSubmissionForm">
+              <div class="form-group">
+                <label for="directiveTitle">Task Summary</label>
+                <input id="directiveTitle" name="title" maxlength="120" placeholder="Core focus title..." required />
+              </div>
+
+              <div class="form-group">
+                <label for="directiveDescription">Context Details</label>
+                <textarea id="directiveDescription" name="description" placeholder="Elaborate on constraints or sub-goals..." rows="4"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="directiveDueDate">Due Date Target</label>
+                <input id="directiveDueDate" name="dueDate" type="date" />
+              </div>
+
+              <div class="form-group">
+                <label for="directivePriority">Priority Matrix</label>
+                <select id="directivePriority" name="priority">
+                  <option value="low">Low Level</option>
+                  <option value="medium" selected>Standard Matrix</option>
+                  <option value="high">Critical Escalation</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="directiveStatus">Current Lifecycle Stage</label>
+                <select id="directiveStatus" name="status">
+                  <option value="todo">Pending Action</option>
+                  <option value="in-progress">In Execution</option>
+                  <option value="done">Resolved Status</option>
+                </select>
+              </div>
+
+              <div class="error-container" id="directiveDiagnosticLog" role="alert"></div>
+              <button class="btn btn-primary" style="width:100%" type="submit" id="directiveSubmitButton">Save Item</button>
+            </form>
+          </aside>
+
+          <section class="content-board">
+            <div class="stats-grid" id="aggregatedMetricsBanner"></div>
+
+            <div class="control-bar">
+              <div class="bar-filters">
+                <div class="toggle-tab-group" style="margin-bottom:0">
+                  <button class="tab-item is-active" type="button" data-filter-scope="all">View All</button>
+                  <button class="tab-item" type="button" data-filter-scope="todo">Pending</button>
+                  <button class="tab-item" type="button" data-filter-scope="in-progress">Active</button>
+                  <button class="tab-item" type="button" data-filter-scope="done">Completed</button>
+                </div>
+
+                <div class="toggle-tab-group" style="margin-bottom:0">
+                  <button class="tab-item is-active" type="button" data-layout-mode="kanban">Kanban</button>
+                  <button class="tab-item" type="button" data-layout-mode="list">List</button>
+                </div>
+              </div>
+
+              <div style="width: 240px;">
+                <input id="searchQueryInput" placeholder="🔍 Search descriptions..." />
+              </div>
+            </div>
+
+            <div class="display-pipeline layout-kanban" id="outputPipelineContainer"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <div class="modal-overlay-shroud is-hidden" id="globalConfirmationDialog">
+      <div class="modal-surface">
+        <h3 class="modal-header-text" id="modalHeadingSlot">Confirm Intended Action</h3>
+        <p class="modal-body-text" id="modalBodySlot">Are you sure you wish to process this pipeline instruction?</p>
+        <div class="modal-action-buttons">
+          <button class="btn btn-ghost" id="modalAbortAction">Cancel</button>
+          <button class="btn btn-danger" id="modalProceedAction">Acknowledge</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

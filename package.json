@@ -1,0 +1,19 @@
+{
+  "name": "taskflow-pipeline-hub",
+  "version": "1.0.0",
+  "description": "Full-stack neo-brutalist task lifecycle management pipeline featuring native HTTP server architecture, secure session state handling, and real-time SSE data sync.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "taskflow",
+    "neo-brutalist",
+    "full-stack",
+    "vanilla-node",
+    "server-sent-events"
+  ],
+  "author": "",
+  "license": "MIT"
+}
